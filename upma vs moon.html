@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Space Video Quality Dropdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dropdown-select {
+            width: 200px;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid red;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            margin-bottom: 20px;
+        }
+
+        .dropdown-select:hover {
+            border-color: red;
+            box-shadow: 0 0 10px yellow;
+        }
+
+        .preview img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px red;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="quality-dropdown">
+            <select class="dropdown-select" id="qualitySelect" aria-label="Video quality selection">
+                <option value=""></option>
+
+                <option value="144">144p</option>
+                <option value="240">240p</option>
+                <option value="480">480p</option>
+                <option value="720">720p</option>
+                <option value="1080">1080p</option>
+            </select>
+        </div>
+
+        <!-- Image preview -->
+        <div class="preview">
+            <img id="qualityImage" src="144p.png" alt="Quality Preview">
+        </div>
+    </div>
+
+    <script>
+        const select = document.getElementById('qualitySelect');
+        const image = document.getElementById('qualityImage');
+
+        // Map qualities to actual filenames
+        const qualityImages = {
+            "144": "144p.png",
+            "240": "240p.jpeg",
+            "480": "480p.jpeg",
+            "720": "720p.jpeg",
+            "1080": "1080p.jpg"
+        };
+
+        // Update image when dropdown changes
+        select.addEventListener('change', () => {
+            const quality = select.value;
+            
+            // Handle empty option - show nothing
+            if (quality === "") {
+                image.style.display = "none";
+                image.src = "";
+            } else {
+                image.style.display = "block";
+                image.src = qualityImages[quality];
+                image.alt = `${quality}`;
+                
+                // Set different dimensions for 1080p (300x300) vs others (150x150)
+                if (quality === "1080") {
+                    image.style.width = "300px";
+                    image.style.height = "450px";
+                } else {
+                    image.style.width = "150px";
+                    image.style.height = "150px";
+                }
+            }
+        });
+
+        // Initially hide image when page loads (empty option is selected)
+        image.style.display = "none";
+    </script>
+</body>
+
+</html>
