@@ -24,6 +24,53 @@
             padding: 20px;
         }
 
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 100px;
+            position: fixed;
+            top: 20px;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid transparent;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            background: pink;
+            color: #000;
+            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.4);
+            border-color: #ffff00;
+        }
+
+        nav a.active {
+            background: yellow;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         .dropdown-select {
             width: 200px;
             padding: 15px;
@@ -43,7 +90,24 @@
             box-shadow: 0 0 10px yellow;
         }
 
-        .preview img {
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            min-height: 100vh;
+            justify-content: center;
+        }
+
+        .quality-dropdown {
+            margin-bottom: 10px;
+        }
+
+        .preview {
+            margin-top: 20px;
+        }
+
+        .preview img.small {
             width: 150px;
             height: 150px;
             border-radius: 10px;
@@ -51,15 +115,83 @@
             box-shadow: 0 0 15px red;
             object-fit: cover;
         }
+
+        .preview img.large {
+            width: 300px;
+            height: 450px;
+            border-radius: 10px;
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px red;
+            object-fit: cover;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: yellow;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        /* ntgWithoutU Section */
+        #ntgWithoutU {
+            max-width: 800px;
+            margin-top: 150px;
+            /* Further increased margin-top to move text down */
+            /* Increased margin-top to move text down */
+        }
+
+        #ntgWithoutU p {
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #eee;
+            text-align: right;
+            white-space: nowrap;
+            display: block;
+            width: 100%;
+        }
+
+        .typing-effect {
+            color: yellow;
+            font-weight: bold;
+            border-right: 2px solid yellow;
+            padding-right: 3px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                border-color: yellow;
+            }
+
+            51%,
+            100% {
+                border-color: transparent;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <nav>
+        <ul>
+            <li><a href="#upmaVSmoon" class="nav-link active">UPMA vs MOON</a></li>
+            <li><a href="#education" class="nav-link">Education</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+<li><a href="#ntgWithoutU" class="nav-link">Ntg without U</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" id="upmaVSmoon">
         <div class="quality-dropdown">
             <select class="dropdown-select" id="qualitySelect" aria-label="Video quality selection">
                 <option value=""></option>
-
                 <option value="144">144p</option>
                 <option value="240">240p</option>
                 <option value="480">480p</option>
@@ -67,18 +199,62 @@
                 <option value="1080">1080p</option>
             </select>
         </div>
-
-        <!-- Image preview -->
         <div class="preview">
-            <img id="qualityImage" src="img/144p.png" alt="Quality Preview">
+            <img id="qualityImage" alt="">
         </div>
     </div>
 
+    <div class="container" id="experience">
+        <h2>Experience</h2>
+        <p>✨ Content coming soon...</p>
+    </div>
+
+<div class="container" id="ntgWithoutU">
+    <div id="ntgWithoutU">
+            <p>How can I "LA_GH" without "<span class="typing-effect">Up</span>"</p>
+            <p>How can I "TR_ST" without "<span class="typing-effect">Up</span>"</p>
+            <p>How can I "H_G" without "<span class="typing-effect">Up</span>"</p>
+            <p>How can I have "F_N" without "<span class="typing-effect">Up</span>"</p>
+            <p>How can I have "F_TURE" without "<span class="typing-effect">Up</span>"</p>
+            <p>My "SO_L" is incomplete without "<span class="typing-effect">Up</span>"</p>
+    </div>
+    </div>
+
     <script>
+        // Typing effect for each U
+        const elements = document.querySelectorAll(".typing-effect");
+        const word = "Upma";
+        let charIndex = 0;
+        let typing = true;
+
+        function typeEffect() {
+            if (typing) {
+                if (charIndex < word.length) {
+                    charIndex++;
+                    elements.forEach(el => el.textContent = word.substring(0, charIndex));
+                    setTimeout(typeEffect, 200);
+                } else {
+                    typing = false;
+                    setTimeout(typeEffect, 2000); // pause at full word
+                }
+            } else {
+                if (charIndex > 1) { // keep at least "U"
+                    charIndex--;
+                    elements.forEach(el => el.textContent = word.substring(0, charIndex));
+                    setTimeout(typeEffect, 100);
+                } else {
+                    typing = true;
+                    setTimeout(typeEffect, 500);
+                }
+            }
+        }
+
+        typeEffect();
+
+        // Quality dropdown preview
         const select = document.getElementById('qualitySelect');
         const image = document.getElementById('qualityImage');
 
-        // Map qualities to actual filenames
         const qualityImages = {
             "144": "img/144p.png",
             "240": "img/240p.jpeg",
@@ -87,32 +263,46 @@
             "1080": "img/1080p.jpg"
         };
 
-        // Update image when dropdown changes
         select.addEventListener('change', () => {
             const quality = select.value;
-            
-            // Handle empty option - show nothing
             if (quality === "") {
                 image.style.display = "none";
                 image.src = "";
             } else {
                 image.style.display = "block";
                 image.src = qualityImages[quality];
-                image.alt = `${quality}`;
-                
-                // Set different dimensions for 1080p (300x300) vs others (150x150)
+                image.alt = `${quality} preview`;
+
                 if (quality === "1080") {
-                    image.style.width = "300px";
-                    image.style.height = "450px";
+                    image.className = "large";
                 } else {
-                    image.style.width = "150px";
-                    image.style.height = "150px";
+                    image.className = "small";
                 }
             }
         });
 
-        // Initially hide image when page loads (empty option is selected)
-        image.style.display = "none";
+        // Active nav on scroll
+        const sections = document.querySelectorAll(".container");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach(sec => {
+                const top = window.scrollY;
+                const offset = sec.offsetTop - 100; // Further adjusted offset for better alignment
+                const height = sec.offsetHeight;
+                if (top >= offset && top < offset + height) {
+                    current = sec.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === `#${current}`) {
+                    link.classList.add("active");
+                }
+            });
+        });
     </script>
 </body>
 
