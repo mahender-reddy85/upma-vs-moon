@@ -4,331 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPMA vs MOON</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        nav {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin-bottom: 100px;
-            position: fixed;
-            top: 20px;
-            z-index: 1000;
-            max-width: 90vw;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            position: relative;
-            border: 1px solid transparent;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        nav a:hover {
-            background: pink;
-            color: #000;
-            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.4);
-            border-color: #ffff00;
-        }
-
-        nav a.active {
-            background: yellow;
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .dropdown-select {
-            width: 200px;
-            padding: 15px;
-            font-size: 18px;
-            border: 2px solid red;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            appearance: none;
-            margin-bottom: 20px;
-            max-width: 90vw;
-        }
-
-        .dropdown-select:hover {
-            border-color: red;
-            box-shadow: 0 0 10px yellow;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            min-height: 100vh;
-            justify-content: center;
-            padding: 20px;
-            width: 100%;
-            max-width: 100vw;
-        }
-
-        .quality-dropdown {
-            margin-bottom: 10px;
-        }
-
-        .preview {
-            margin-top: 20px;
-        }
-
-        .preview img.small {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
-            border: 2px solid #fff;
-            box-shadow: 0 0 15px red;
-            object-fit: cover;
-            max-width: 90vw;
-            max-height: 90vw;
-        }
-
-        .preview img.large {
-            width: 300px;
-            height: 450px;
-            border-radius: 10px;
-            border: 2px solid #fff;
-            box-shadow: 0 0 15px red;
-            object-fit: cover;
-            max-width: 90vw;
-            max-height: 90vh;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: yellow;
-        }
-
-        p {
-            font-size: 18px;
-            margin: 5px 0;
-            text-align: center;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        /* ntgWithoutU Section */
-        #ntgWithoutU {
-            max-width: 800px;
-            margin-top: 150px;
-            width: 100%;
-            padding: 0 20px;
-        }
-
-        #ntgWithoutU p {
-            font-size: 1rem;
-            font-weight: bold;
-            margin: 15px 0;
-            color: #eee;
-            text-align: right;
-            white-space: normal;
-            display: block;
-            width: 100%;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .typing-effect {
-            color: yellow;
-            font-weight: bold;
-            border-right: 2px solid yellow;
-            padding-right: 3px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-
-            0%,
-            50% {
-                border-color: yellow;
-            }
-
-            51%,
-            100% {
-                border-color: transparent;
-            }
-        }
-
-        /* Mobile Responsive Styles */
-        @media screen and (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            nav {
-                position: fixed;
-                top: 10px;
-                padding: 8px 15px;
-                margin-bottom: 80px;
-                width: 95%;
-                max-width: none;
-            }
-
-            nav ul {
-                gap: 10px;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            nav a {
-                padding: 8px 12px;
-                font-size: 12px;
-                letter-spacing: 0.5px;
-            }
-
-            .dropdown-select {
-                width: 90%;
-                max-width: 300px;
-                padding: 12px;
-                font-size: 16px;
-            }
-
-            .preview img.small {
-                width: 120px;
-                height: 120px;
-            }
-
-            .preview img.large {
-                width: 250px;
-                height: 375px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            p {
-                font-size: 16px;
-            }
-
-            #ntgWithoutU {
-                margin-top: 120px;
-                padding: 0 15px;
-            }
-
-            #ntgWithoutU p {
-                font-size: 0.9rem;
-                text-align: right;
-                margin: 10px 0;
-            }
-
-            .container {
-                padding: 10px;
-                gap: 15px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            nav {
-                padding: 5px 10px;
-                top: 5px;
-            }
-
-            nav ul {
-                gap: 5px;
-            }
-
-            nav a {
-                padding: 6px 10px;
-                font-size: 11px;
-            }
-
-            .dropdown-select {
-                width: 95%;
-                padding: 10px;
-                font-size: 14px;
-            }
-
-            .preview img.small {
-                width: 100px;
-                height: 100px;
-            }
-
-            .preview img.large {
-                width: 200px;
-                height: 300px;
-            }
-
-            h2 {
-                font-size: 20px;
-            }
-
-            p {
-                font-size: 14px;
-            }
-
-            #ntgWithoutU {
-                margin-top: 100px;
-                padding: 0 10px;
-            }
-
-            #ntgWithoutU p {
-                font-size: 0.8rem;
-            }
-        }
-
-        @media screen and (max-width: 320px) {
-            nav a {
-                padding: 5px 8px;
-                font-size: 10px;
-            }
-
-            .preview img.small {
-                width: 80px;
-                height: 80px;
-            }
-
-            .preview img.large {
-                width: 150px;
-                height: 225px;
-            }
-        }
-    </style>
+    <title>My Universe</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -340,10 +17,16 @@
         </div>
         <ul id="nav-links">
             <li><a href="#upmaVSmoon" class="nav-link active">UPMA vs MOON</a></li>
-            <li><a href="#ntgWithoutU" class="nav-link">Nothing Without You</a></li>
+            <li><a href="#u&amp;m" class="nav-link">U &amp; M</a></li>
+            <li><a href="#ntgWithoutU" class="nav-link">Ntg without U</a></li>
+            <li><a href="#u💘m" class="nav-link">U 💘 M</a></li>
+            <li><a href="#upma-pandu" class="nav-link">Upma - Pandu</a></li>
+            <li><a href="#upmi-mahyu" class="nav-link">Upmi - Mahyu</a></li>
+            <li><a href="#dubbyMahi" class="nav-link">Dubby 💘 Mahi</a></li>
         </ul>
     </nav>
 
+    <!-- UPMA vs MOON -->
     <div class="container" id="upmaVSmoon">
         <div class="quality-dropdown">
             <select class="dropdown-select" id="qualitySelect" aria-label="Video quality selection">
@@ -360,103 +43,163 @@
         </div>
     </div>
 
-    <div class="container" id="ntgWithoutU">
-        <div id="ntgWithoutU" style="text-align: center;">
-            <p>How can I <span style="color: red;">"LA_GH"</span> without "<span class="typing-effect">Up</span>"</p>
-            <p>How can I <span style="color: red;">"TR_ST"</span> without "<span class="typing-effect">Up</span>"</p>
-            <p>How can I <span style="color: red;">"H_G"</span> without "<span class="typing-effect">Up</span>"</p>
-            <p>How can I have <span style="color: red;">"F_N"</span> without "<span class="typing-effect">Up</span>"</p>
-            <p>How can I have <span style="color: red;">"F_TURE"</span> without "<span class="typing-effect">Up</span>"
-            </p>
-            <p>My <span style="color: red;">"SO_L"</span> is incomplete without "<span class="typing-effect">Up</span>"
-            </p>
+    <div class="container" id="u&m">
+        <div class="carousel-title">MEMORIES TOGETHER</div>
+        <div class="carousel">
+            <div class="slider">
+                <img src="img/upma_mahi_1.jpg" alt="Upma and Mahi photo 1">
+                <img src="img/upma_mahi_2.jpg" alt="Upma and Mahi photo 2">
+                <img src="img/upma_mahi_3.jpg" alt="Upma and Mahi photo 3">
+                <img src="img/upma_mahi_4.jpg" alt="Upma and Mahi photo 4">
+                <img src="img/upma_mahi_5.jpg" alt="Upma and Mahi photo 5">
+                <img src="img/upma_mahi_6.jpg" alt="Upma and Mahi photo 6">
+                <img src="img/upma_mahi_7.jpg" alt="Upma and Mahi photo 7">
+                <img src="img/upma_mahi_8.jpg" alt="Upma and Mahi photo 8">
+                <img src="img/upma_mahi_9.jpg" alt="Upma and Mahi photo 9">
+                <img src="img/upma_mahi_10.jpg" alt="Upma and Mahi photo 10">
+                <img src="img/upma_mahi_11.jpg" alt="Upma and Mahi photo 11">
+                <img src="img/upma_mahi_12.jpg" alt="Upma and Mahi photo 12">
+                <img src="img/upma_mahi_13.jpg" alt="Upma and Mahi photo 13">
+                <img src="img/upma_mahi_14.jpg" alt="Upma and Mahi photo 14">
+                <img src="img/upma_mahi_15.jpg" alt="Upma and Mahi photo 15">
+                <img src="img/upma_mahi_16.jpg" alt="Upma and Mahi photo 16">
+                <img src="img/upma_mahi_17.jpg" alt="Upma and Mahi photo 17">
+                <img src="img/upma_mahi_18.jpg" alt="Upma and Mahi photo 18">
+                <img src="img/upma_mahi_19.jpg" alt="Upma and Mahi photo 19">
+            </div>
+            <div class="carousel-overlay"></div>
         </div>
     </div>
 
-    <script>
-        // Typing effect for each U
-        const elements = document.querySelectorAll(".typing-effect");
-        const word = "Upma";
-        let charIndex = 0;
-        let typing = true;
+    <!-- Ntg Without U - Enhanced -->
+    <div class="container" id="ntgWithoutU">
+        <h4 class="section-title">Nothing Without You</h4>
+        <div class="romantic-messages">
+            <div class="message-line">
+                <span class="message-text">How can I <span class="incomplete-word">"LA_GH"</span> without "<span
+                        class="typing-effect">Up</span>"</span>
+            </div>
+            <div class="message-line">
+                <span class="message-text">How can I <span class="incomplete-word">"TR_ST"</span> without "<span
+                        class="typing-effect">Up</span>"</span>
+            </div>
+            <div class="message-line">
+                <span class="message-text">How can I <span class="incomplete-word">"H_G"</span> without "<span
+                        class="typing-effect">Up</span>"</span>
+            </div>
+            <div class="message-line">
+                <span class="message-text">How can I have <span class="incomplete-word">"F_N"</span> without "<span
+                        class="typing-effect">Up</span>"</span>
+            </div>
+            <div class="message-line">
+                <span class="message-text">How can I have <span class="incomplete-word">"F_TURE"</span> without
+                    "<span class="typing-effect">Up</span>"</span>
+            </div>
+            <div class="message-line">
+                <span class="message-text">My <span class="incomplete-word">"SO_L"</span> is incomplete without
+                    "<span class="typing-effect">Up</span>"</span>
+            </div>
+        </div>
+    </div>
 
-        function typeEffect() {
-            if (typing) {
-                if (charIndex < word.length) {
-                    charIndex++;
-                    elements.forEach(el => el.textContent = word.substring(0, charIndex));
-                    setTimeout(typeEffect, 200);
-                } else {
-                    typing = false;
-                    setTimeout(typeEffect, 2000); // pause at full word
-                }
-            } else {
-                if (charIndex > 1) { // keep at least "U"
-                    charIndex--;
-                    elements.forEach(el => el.textContent = word.substring(0, charIndex));
-                    setTimeout(typeEffect, 100);
-                } else {
-                    typing = true;
-                    setTimeout(typeEffect, 500);
-                }
-            }
-        }
+    <div class="container" id="u💘m">
+        <div class="heart-row">
+            <img src="img/upma.jpg" alt="Upma" class="heart-side-img left-img">
+            <div class="heart-center">
+                <canvas id="c"></canvas>
+            </div>
+            <img src="img/mahi.jpg" alt="Mahi" class="heart-side-img right-img">
+        </div>
+    </div>
 
-        typeEffect();
+    <section id="upma-pandu" class="slider-section">
+        <div class="slider-container">
+            <div class="cards_inner">
+                <div class="card"><img src="img/upma_mahi_1.jpg" alt="Upma and Mahi photo 1"></div>
+                <div class="card"><img src="img/upma_mahi_2.jpg" alt="Upma and Mahi photo 2"></div>
+                <div class="card"><img src="img/upma_mahi_3.jpg" alt="Upma and Mahi photo 3"></div>
+                <div class="card"><img src="img/upma_mahi_4.jpg" alt="Upma and Mahi photo 4"></div>
+                <div class="card"><img src="img/upma_mahi_5.jpg" alt="Upma and Mahi photo 5"></div>
+                <div class="card"><img src="img/upma_mahi_6.jpg" alt="Upma and Mahi photo 6"></div>
+                <div class="card"><img src="img/upma_mahi_7.jpg" alt="Upma and Mahi photo 7"></div>
+                <div class="card"><img src="img/upma_mahi_8.jpg" alt="Upma and Mahi photo 8"></div>
+                <div class="card"><img src="img/upma_mahi_9.jpg" alt="Upma and Mahi photo 9"></div>
+                <div class="card"><img src="img/upma_mahi_10.jpg" alt="Upma and Mahi photo 10"></div>
+                <div class="card"><img src="img/upma_mahi_11.jpg" alt="Upma and Mahi photo 11"></div>
+                <div class="card"><img src="img/upma_mahi_12.jpg" alt="Upma and Mahi photo 12"></div>
+                <div class="card"><img src="img/upma_mahi_13.jpg" alt="Upma and Mahi photo 13"></div>
+                <div class="card"><img src="img/upma_mahi_14.jpg" alt="Upma and Mahi photo 14"></div>
+                <div class="card"><img src="img/upma_mahi_15.jpg" alt="Upma and Mahi photo 15"></div>
+                <div class="card"><img src="img/upma_mahi_16.jpg" alt="Upma and Mahi photo 16"></div>
+                <div class="card"><img src="img/upma_mahi_17.jpg" alt="Upma and Mahi photo 17"></div>
+                <div class="card"><img src="img/upma_mahi_18.jpg" alt="Upma and Mahi photo 18"></div>
+                <div class="card"><img src="img/upma_mahi_19.jpg" alt="Upma and Mahi photo 19"></div>
+            </div>
+        </div>
+    </section>
 
-        // Quality dropdown preview
-        const select = document.getElementById('qualitySelect');
-        const image = document.getElementById('qualityImage');
+    <div class="container" id="upmi-mahyu">
+        <h4 class="section-title">Upmi - Mahyu</h4>
+        <div class="slideshow">
+            <img id="slideshow-img1" src="img/upma_mahi_1.jpg" alt="Slideshow image 1">
+            <img id="slideshow-img2" src="img/upma_mahi_2.jpg" alt="Slideshow image 2">
+            <img id="slideshow-img3" src="img/upma_mahi_3.jpg" alt="Slideshow image 3">
+            <img id="slideshow-img4" src="img/upma_mahi_4.jpg" alt="Slideshow image 4">
+            <img id="slideshow-img5" src="img/upma_mahi_5.jpg" alt="Slideshow image 5">
+            <img id="slideshow-img6" src="img/upma_mahi_6.jpg" alt="Slideshow image 6">
+            <img id="slideshow-img7" src="img/upma_mahi_7.jpg" alt="Slideshow image 7">
+            <img id="slideshow-img8" src="img/upma_mahi_8.jpg" alt="Slideshow image 8">
+        </div>
+    </div>
 
-        const qualityImages = {
-            "144": "img/144p.png",
-            "240": "img/240p.jpeg",
-            "480": "img/480p.jpeg",
-            "720": "img/720p.jpeg",
-            "1080": "img/1080p.jpg"
-        };
+    <div class="container" id="dubbyMahi">
+        <div class="gallery">
+            <div class="gallery-row">
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_1.jpg" alt="Dubby Mahi 1">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_4.jpg" alt="Dubby Mahi 4">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_7.jpg" alt="Dubby Mahi 7">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_10.jpg" alt="Dubby Mahi 10">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_13.jpg" alt="Dubby Mahi 13">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_16.jpg" alt="Dubby Mahi 16">
+                </div>
+            </div>
+            <div class="gallery-row">
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_2.jpg" alt="Dubby Mahi 2">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_3.jpg" alt="Dubby Mahi 3">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_5.jpg" alt="Dubby Mahi 5">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_6.jpg" alt="Dubby Mahi 6">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_8.jpg" alt="Dubby Mahi 8">
+                </div>
+                <div class="image-wrapper">
+                    <img src="img/upma_mahi_9.jpg" alt="Dubby Mahi 9">
+                </div>
+            </div>
+        </div>
+    </div>
 
-        select.addEventListener('change', () => {
-            const quality = select.value;
-            if (quality === "") {
-                image.style.display = "none";
-                image.src = "";
-            } else {
-                image.style.display = "block";
-                image.src = qualityImages[quality];
-                image.alt = `${quality} preview`;
-
-                if (quality === "1080") {
-                    image.className = "large";
-                } else {
-                    image.className = "small";
-                }
-            }
-        });
-
-        // Active nav on scroll
-        const sections = document.querySelectorAll(".container");
-        const navLinks = document.querySelectorAll(".nav-link");
-
-        window.addEventListener("scroll", () => {
-            let current = "";
-            sections.forEach(sec => {
-                const top = window.scrollY;
-                const offset = sec.offsetTop - 100; // Further adjusted offset for better alignment
-                const height = sec.offsetHeight;
-                if (top >= offset && top < offset + height) {
-                    current = sec.getAttribute("id");
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove("active");
-                if (link.getAttribute("href") === `#${current}`) {
-                    link.classList.add("active");
-                }
-            });
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
