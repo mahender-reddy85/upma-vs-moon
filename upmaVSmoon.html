@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPMA vs MOON</title>
+    <style>
+:root {
+    --bg-color: #000;
+    --text-color: #fff;
+    --nav-bg: rgba(0, 0, 0, 0.7);
+    --accent: #ffd700;
+    --hover-bg: pink;
+    --hover-color: #000;
+}
+
+.light-theme {
+    --bg-color: #fff;
+    --text-color: #000;
+    --nav-bg: rgba(255, 255, 255, 0.7);
+    --accent: #ff4500;
+    --hover-bg: pink;
+    --hover-color: #000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+nav {
+    background-color: var(--nav-bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 100px;
+    position: fixed;
+    top: 20px;
+    z-index: 1000;
+    max-width: 90vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.theme-toggle {
+    background: var(--accent);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hamburger menu styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid transparent;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+nav a:hover,
+nav a:focus,
+nav a:active {
+    background: pink;
+    color: #000;
+    box-shadow: 0 5px 15px rgba(255, 255, 0, 0.4);
+    border-color: #ffff00;
+}
+
+nav a.active {
+    background: linear-gradient(90deg, yellow, orange);
+    color: #000;
+    box-shadow: 0 0 25px rgba(255, 255, 100, 0.9);
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* offset for fixed nav height */
+}
+
+.dropdown-select {
+    width: 200px;
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid red;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    margin-bottom: 20px;
+    max-width: 90vw;
+}
+
+.dropdown-select:hover {
+    border-color: red;
+    box-shadow: 0 0 10px yellow;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    min-height: 100vh;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+}
+
+
+
+.quality-dropdown {
+    margin-bottom: 10px;
+}
+
+.preview {
+    margin-top: 20px;
+}
+
+.preview img.small {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 15px red;
+    object-fit: cover;
+    max-width: 90vw;
+    max-height: 90vw;
+}
+
+.preview img.large {
+    width: 300px;
+    height: 450px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 15px red;
+    object-fit: cover;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 12px;
+        border-radius: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        transition: all 0.3s ease;
+    }
+
+    .hamburger:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.9);
+    }
+
+    .hamburger span {
+        width: 30px;
+        height: 4px;
+        background-color: white;
+        margin: 4px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+    }
+
+    #nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 10px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    #nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    nav a {
+        padding: 15px 25px;
+        font-size: 16px;
+        border-radius: 30px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .dropdown-select {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+    }
+}
+
+/* Light theme overrides for visibility */
+.light-theme nav a {
+    color: black;
+}
+
+.light-theme .hamburger span {
+    background-color: black;
+}
+
+.light-theme .dropdown-select {
+    background: rgba(255, 255, 255, 0.3);
+    color: black;
+    border-color: black;
+}
+
+/* Splash cursor effect */
+.cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.5);
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+}
+
+@keyframes splash {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.splash-particle {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.5);
+    pointer-events: none;
+    z-index: 9998;
+    animation: splash 1s ease-out;
+}
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="u&m.html" class="nav-link">U & M</a></li>
+            <li><a href="ntgWithoutU.html" class="nav-link">Ntg without U</a></li>
+            <li><a href="u💘m.html" class="nav-link">U 💘 M</a></li>
+            <li><a href="upma-pandu.html" class="nav-link">Upma - Pandu</a></li>
+            <li><a href="upmi-mahyu.html" class="nav-link">Upmi - Mahyu</a></li>
+            <li><a href="dubbyMahi.html" class="nav-link">Dubby 💘 Mahi</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle">🌙</button>
+    </nav>
+
+    <!-- UPMA vs MOON -->
+    <div class="container" id="upmaVSmoon">
+        <div class="quality-dropdown">
+            <select class="dropdown-select" id="qualitySelect" aria-label="Video quality selection">
+                <option value=""></option>
+                <option value="144">144p</option>
+                <option value="240">240p</option>
+                <option value="480">480p</option>
+                <option value="720">720p</option>
+                <option value="1080">1080p</option>
+            </select>
+        </div>
+        <div class="preview">
+            <img id="qualityImage" alt="">
+        </div>
+    </div>
+
+    <script>
+// Hamburger menu toggle
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-links');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a nav link
+navMenu.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+});
+
+// Quality dropdown
+const select = document.getElementById('qualitySelect');
+const image = document.getElementById('qualityImage');
+const qualityImages = {
+    "144": "img/144p.png",
+    "240": "img/240p.jpeg",
+    "480": "img/480p.jpeg",
+    "720": "img/720p.jpeg",
+    "1080": "img/1080p.jpg"
+};
+
+select.addEventListener('change', () => {
+    const quality = select.value;
+    if (quality === "") {
+        image.style.display = "none";
+        image.src = "";
+    } else {
+        image.style.display = "block";
+        image.src = qualityImages[quality];
+        image.alt = `${quality} preview`;
+        image.className = (quality === "1080") ? "large" : "small";
+    }
+});
+
+// Theme toggle
+const themeToggle = document.getElementById('theme-toggle');
+
+// Load theme from localStorage
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+    themeToggle.textContent = '☀️';
+} else {
+    themeToggle.textContent = '🌙';
+}
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-theme');
+    const isLight = document.body.classList.contains('light-theme');
+    themeToggle.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});
+
+// Splash cursor effect
+const cursor = document.createElement('div');
+cursor.className = 'cursor';
+document.body.appendChild(cursor);
+
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX - 10 + 'px';
+    cursor.style.top = e.clientY - 10 + 'px';
+});
+
+document.addEventListener('click', (e) => {
+    const splash = document.createElement('div');
+    splash.className = 'splash-particle';
+    splash.style.left = e.clientX - 10 + 'px';
+    splash.style.top = e.clientY - 10 + 'px';
+    document.body.appendChild(splash);
+    setTimeout(() => {
+        splash.remove();
+    }, 1000);
+});
+    </script>
+</body>
+
+</html>

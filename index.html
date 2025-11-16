@@ -5,201 +5,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Universe</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+:root {
+    --bg-color: #000;
+    --text-color: #fff;
+    --nav-bg: rgba(0, 0, 0, 0.7);
+    --accent: #ffd700;
+    --hover-bg: pink;
+    --hover-color: #000;
+}
+
+.light-theme {
+    --bg-color: #fff;
+    --text-color: #000;
+    --nav-bg: rgba(255, 255, 255, 0.7);
+    --accent: #ff4500;
+    --hover-bg: pink;
+    --hover-color: #000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+nav {
+    background-color: var(--nav-bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 100px;
+    position: fixed;
+    top: 20px;
+    z-index: 1000;
+    max-width: 90vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.theme-toggle {
+    background: var(--accent);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+
+
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* offset for fixed nav height */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    min-height: 100vh;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+}
+
+.vertical-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.vertical-nav a {
+    color: #ffd700;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 16px;
+    border: 2px solid transparent;
+}
+
+.vertical-nav a:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffd700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.moving-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ffd700;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    display: none;
+    z-index: 2000;
+}
+
+.shiny-text {
+    color: #b5b5b5a4;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.8) 50%,
+        rgba(255, 255, 255, 0) 60%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: inline-block;
+    animation: shine 5s linear infinite;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+@keyframes shine {
+    0% {
+        background-position: 100%;
+    }
+    100% {
+        background-position: -100%;
+    }
+}
+
+/* Light theme overrides for visibility */
+.light-theme .vertical-nav a {
+    color: black;
+}
+
+.light-theme .moving-box {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: black;
+}
+
+.light-theme .shiny-text {
+    color: black;
+}
+
+/* Splash cursor effect */
+.cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.5);
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+}
+
+@keyframes splash {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.splash-particle {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.5);
+    pointer-events: none;
+    z-index: 9998;
+    animation: splash 1s ease-out;
+}
+    </style>
 </head>
 
 <body>
     <nav>
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <ul id="nav-links">
-            <li><a href="#upmaVSmoon" class="nav-link active">UPMA vs MOON</a></li>
-            <li><a href="#u&amp;m" class="nav-link">U &amp; M</a></li>
-            <li><a href="#ntgWithoutU" class="nav-link">Ntg without U</a></li>
-            <li><a href="#u💘m" class="nav-link">U 💘 M</a></li>
-            <li><a href="#upma-pandu" class="nav-link">Upma - Pandu</a></li>
-            <li><a href="#upmi-mahyu" class="nav-link">Upmi - Mahyu</a></li>
-            <li><a href="#dubbyMahi" class="nav-link">Dubby 💘 Mahi</a></li>
-        </ul>
+        <button class="theme-toggle" id="theme-toggle">🌙</button>
     </nav>
 
-    <!-- UPMA vs MOON -->
-    <div class="container" id="upmaVSmoon">
-        <div class="quality-dropdown">
-            <select class="dropdown-select" id="qualitySelect" aria-label="Video quality selection">
-                <option value=""></option>
-                <option value="144">144p</option>
-                <option value="240">240p</option>
-                <option value="480">480p</option>
-                <option value="720">720p</option>
-                <option value="1080">1080p</option>
-            </select>
+    <div class="container">
+        <h1 style="color: #ffd700; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">Welcome to My Universe</h1>
+        <div class="vertical-nav">
+            <a href="index.html" class="nav-link" data-name="Home">Home</a>
+            <a href="upmaVSmoon.html" class="nav-link" data-name="UPMA vs MOON">UPMA vs MOON</a>
+            <a href="u&m.html" class="nav-link" data-name="U & M">U & M</a>
+            <a href="ntgWithoutU.html" class="nav-link" data-name="Ntg without U">Ntg without U</a>
+            <a href="u💘m.html" class="nav-link" data-name="U 💘 M">U 💘 M</a>
+            <a href="upma-pandu.html" class="nav-link" data-name="Upma - Pandu">Upma - Pandu</a>
+            <a href="upmi-mahyu.html" class="nav-link" data-name="Upmi - Mahyu">Upmi - Mahyu</a>
+            <a href="dubbyMahi.html" class="nav-link" data-name="Dubby 💘 Mahi">Dubby 💘 Mahi</a>
         </div>
-        <div class="preview">
-            <img id="qualityImage" alt="">
-        </div>
+    <div id="moving-message" class="moving-box">
+        <div class="shiny-text" id="shiny-text"></div>
     </div>
+    <div class="cursor" id="cursor"></div>
+</div>
 
-    <div class="container" id="u&m">
-        <div class="carousel-title">MEMORIES TOGETHER</div>
-        <div class="carousel">
-            <div class="slider">
-                <img src="img/upma_mahi_1.jpg" alt="Upma and Mahi photo 1">
-                <img src="img/upma_mahi_2.jpg" alt="Upma and Mahi photo 2">
-                <img src="img/upma_mahi_3.jpg" alt="Upma and Mahi photo 3">
-                <img src="img/upma_mahi_4.jpg" alt="Upma and Mahi photo 4">
-                <img src="img/upma_mahi_5.jpg" alt="Upma and Mahi photo 5">
-                <img src="img/upma_mahi_6.jpg" alt="Upma and Mahi photo 6">
-                <img src="img/upma_mahi_7.jpg" alt="Upma and Mahi photo 7">
-                <img src="img/upma_mahi_8.jpg" alt="Upma and Mahi photo 8">
-                <img src="img/upma_mahi_9.jpg" alt="Upma and Mahi photo 9">
-                <img src="img/upma_mahi_10.jpg" alt="Upma and Mahi photo 10">
-                <img src="img/upma_mahi_11.jpg" alt="Upma and Mahi photo 11">
-                <img src="img/upma_mahi_12.jpg" alt="Upma and Mahi photo 12">
-                <img src="img/upma_mahi_13.jpg" alt="Upma and Mahi photo 13">
-                <img src="img/upma_mahi_14.jpg" alt="Upma and Mahi photo 14">
-                <img src="img/upma_mahi_15.jpg" alt="Upma and Mahi photo 15">
-                <img src="img/upma_mahi_16.jpg" alt="Upma and Mahi photo 16">
-                <img src="img/upma_mahi_17.jpg" alt="Upma and Mahi photo 17">
-                <img src="img/upma_mahi_18.jpg" alt="Upma and Mahi photo 18">
-                <img src="img/upma_mahi_19.jpg" alt="Upma and Mahi photo 19">
-            </div>
-            <div class="carousel-overlay"></div>
-        </div>
-    </div>
+    <script>
+// Vertical nav click handler
+const verticalNavLinks = document.querySelectorAll('.vertical-nav a');
+const movingMessage = document.getElementById('moving-message');
+const shinyText = document.getElementById('shiny-text');
 
-    <!-- Ntg Without U - Enhanced -->
-    <div class="container" id="ntgWithoutU">
-        <h4 class="section-title">Nothing Without You</h4>
-        <div class="romantic-messages">
-            <div class="message-line">
-                <span class="message-text">How can I <span class="incomplete-word">"LA_GH"</span> without "<span
-                        class="typing-effect">Up</span>"</span>
-            </div>
-            <div class="message-line">
-                <span class="message-text">How can I <span class="incomplete-word">"TR_ST"</span> without "<span
-                        class="typing-effect">Up</span>"</span>
-            </div>
-            <div class="message-line">
-                <span class="message-text">How can I <span class="incomplete-word">"H_G"</span> without "<span
-                        class="typing-effect">Up</span>"</span>
-            </div>
-            <div class="message-line">
-                <span class="message-text">How can I have <span class="incomplete-word">"F_N"</span> without "<span
-                        class="typing-effect">Up</span>"</span>
-            </div>
-            <div class="message-line">
-                <span class="message-text">How can I have <span class="incomplete-word">"F_TURE"</span> without
-                    "<span class="typing-effect">Up</span>"</span>
-            </div>
-            <div class="message-line">
-                <span class="message-text">My <span class="incomplete-word">"SO_L"</span> is incomplete without
-                    "<span class="typing-effect">Up</span>"</span>
-            </div>
-        </div>
-    </div>
+verticalNavLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = link.getAttribute('data-name');
+        shinyText.textContent = `Moving to ${name}`;
+        movingMessage.style.display = 'block';
+        setTimeout(() => {
+            window.location.href = link.href;
+        }, 5000);
+    });
+});
 
-    <div class="container" id="u💘m">
-        <div class="heart-row">
-            <img src="img/upma.jpg" alt="Upma" class="heart-side-img left-img">
-            <div class="heart-center">
-                <canvas id="c"></canvas>
-            </div>
-            <img src="img/mahi.jpg" alt="Mahi" class="heart-side-img right-img">
-        </div>
-    </div>
+// Theme toggle
+const themeToggle = document.getElementById('theme-toggle');
 
-    <section id="upma-pandu" class="slider-section">
-        <div class="slider-container">
-            <div class="cards_inner">
-                <div class="card"><img src="img/upma_mahi_1.jpg" alt="Upma and Mahi photo 1"></div>
-                <div class="card"><img src="img/upma_mahi_2.jpg" alt="Upma and Mahi photo 2"></div>
-                <div class="card"><img src="img/upma_mahi_3.jpg" alt="Upma and Mahi photo 3"></div>
-                <div class="card"><img src="img/upma_mahi_4.jpg" alt="Upma and Mahi photo 4"></div>
-                <div class="card"><img src="img/upma_mahi_5.jpg" alt="Upma and Mahi photo 5"></div>
-                <div class="card"><img src="img/upma_mahi_6.jpg" alt="Upma and Mahi photo 6"></div>
-                <div class="card"><img src="img/upma_mahi_7.jpg" alt="Upma and Mahi photo 7"></div>
-                <div class="card"><img src="img/upma_mahi_8.jpg" alt="Upma and Mahi photo 8"></div>
-                <div class="card"><img src="img/upma_mahi_9.jpg" alt="Upma and Mahi photo 9"></div>
-                <div class="card"><img src="img/upma_mahi_10.jpg" alt="Upma and Mahi photo 10"></div>
-                <div class="card"><img src="img/upma_mahi_11.jpg" alt="Upma and Mahi photo 11"></div>
-                <div class="card"><img src="img/upma_mahi_12.jpg" alt="Upma and Mahi photo 12"></div>
-                <div class="card"><img src="img/upma_mahi_13.jpg" alt="Upma and Mahi photo 13"></div>
-                <div class="card"><img src="img/upma_mahi_14.jpg" alt="Upma and Mahi photo 14"></div>
-                <div class="card"><img src="img/upma_mahi_15.jpg" alt="Upma and Mahi photo 15"></div>
-                <div class="card"><img src="img/upma_mahi_16.jpg" alt="Upma and Mahi photo 16"></div>
-                <div class="card"><img src="img/upma_mahi_17.jpg" alt="Upma and Mahi photo 17"></div>
-                <div class="card"><img src="img/upma_mahi_18.jpg" alt="Upma and Mahi photo 18"></div>
-                <div class="card"><img src="img/upma_mahi_19.jpg" alt="Upma and Mahi photo 19"></div>
-            </div>
-        </div>
-    </section>
+// Load theme from localStorage
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+    themeToggle.textContent = '☀️';
+} else {
+    themeToggle.textContent = '🌙';
+}
 
-    <div class="container" id="upmi-mahyu">
-        <h4 class="section-title">Upmi - Mahyu</h4>
-        <div class="slideshow">
-            <img id="slideshow-img1" src="img/upma_mahi_1.jpg" alt="Slideshow image 1">
-            <img id="slideshow-img2" src="img/upma_mahi_2.jpg" alt="Slideshow image 2">
-            <img id="slideshow-img3" src="img/upma_mahi_3.jpg" alt="Slideshow image 3">
-            <img id="slideshow-img4" src="img/upma_mahi_4.jpg" alt="Slideshow image 4">
-            <img id="slideshow-img5" src="img/upma_mahi_5.jpg" alt="Slideshow image 5">
-            <img id="slideshow-img6" src="img/upma_mahi_6.jpg" alt="Slideshow image 6">
-            <img id="slideshow-img7" src="img/upma_mahi_7.jpg" alt="Slideshow image 7">
-            <img id="slideshow-img8" src="img/upma_mahi_8.jpg" alt="Slideshow image 8">
-        </div>
-    </div>
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-theme');
+    const isLight = document.body.classList.contains('light-theme');
+    themeToggle.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});
 
-    <div class="container" id="dubbyMahi">
-        <div class="gallery">
-            <div class="gallery-row">
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_1.jpg" alt="Dubby Mahi 1">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_4.jpg" alt="Dubby Mahi 4">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_7.jpg" alt="Dubby Mahi 7">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_10.jpg" alt="Dubby Mahi 10">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_13.jpg" alt="Dubby Mahi 13">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_16.jpg" alt="Dubby Mahi 16">
-                </div>
-            </div>
-            <div class="gallery-row">
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_2.jpg" alt="Dubby Mahi 2">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_3.jpg" alt="Dubby Mahi 3">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_5.jpg" alt="Dubby Mahi 5">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_6.jpg" alt="Dubby Mahi 6">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_8.jpg" alt="Dubby Mahi 8">
-                </div>
-                <div class="image-wrapper">
-                    <img src="img/upma_mahi_9.jpg" alt="Dubby Mahi 9">
-                </div>
-            </div>
-        </div>
-    </div>
+// Splash cursor effect
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX - 10 + 'px';
+    cursor.style.top = e.clientY - 10 + 'px';
+});
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
-    <script src="script.js"></script>
+document.addEventListener('click', (e) => {
+    const splash = document.createElement('div');
+    splash.className = 'splash-particle';
+    splash.style.left = e.clientX - 10 + 'px';
+    splash.style.top = e.clientY - 10 + 'px';
+    document.body.appendChild(splash);
+    setTimeout(() => {
+        splash.remove();
+    }, 1000);
+});
+    </script>
 </body>
 
 </html>
